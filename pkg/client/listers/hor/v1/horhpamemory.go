@@ -22,7 +22,7 @@ import (
 	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/client-go/tools/cache"
-	v1 "kube-hpamemory/pkg/apis/horhpamemory/v1"
+	v1 "kube-hpamemory/pkg/apis/hor.hpa.memory/v1"
 )
 
 // HORHPAMemoryLister helps list HORHPAMemories.

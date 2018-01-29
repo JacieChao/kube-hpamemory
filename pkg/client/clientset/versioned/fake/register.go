@@ -20,7 +20,7 @@ import (
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
 	serializer "k8s.io/apimachinery/pkg/runtime/serializer"
-	horhpamemoryv1 "kube-hpamemory/pkg/apis/horhpamemory/v1"
+	horv1 "kube-hpamemory/pkg/apis/hor.hpa.memory/v1"
 )
 
 var scheme = runtime.NewScheme()
@@ -47,6 +47,6 @@ func init() {
 // After this, RawExtensions in Kubernetes types will serialize kube-aggregator types
 // correctly.
 func AddToScheme(scheme *runtime.Scheme) {
-	horhpamemoryv1.AddToScheme(scheme)
+	horv1.AddToScheme(scheme)
 
 }

@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	HPAMemoryResourceGroup = "horhpamemory"
+	HPAMemoryResourceGroup = "hor.hpa.memory"
 	HPAMemoryResourceName = "HORHPAMemory"
 	HPAMemoryResourceVersion = "v1"
 )
@@ -16,7 +16,7 @@ const (
 
 type HORHPAMemory struct {
 	metav1.TypeMeta `json:",inline"`
-	// Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+	// Standard object metadata.
 	// +optional
 	metav1.ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Spec HPAMemorySpec `json:"spec,omitempty" protobuf:"bytes,2,opt,name=spec"`

@@ -18,26 +18,26 @@ package v1
 import (
 	serializer "k8s.io/apimachinery/pkg/runtime/serializer"
 	rest "k8s.io/client-go/rest"
-	v1 "kube-hpamemory/pkg/apis/horhpamemory/v1"
+	v1 "kube-hpamemory/pkg/apis/hor.hpa.memory/v1"
 	"kube-hpamemory/pkg/client/clientset/versioned/scheme"
 )
 
-type HorhpamemoryV1Interface interface {
+type HorV1Interface interface {
 	RESTClient() rest.Interface
 	HORHPAMemoriesGetter
 }
 
-// HorhpamemoryV1Client is used to interact with features provided by the horhpamemory group.
-type HorhpamemoryV1Client struct {
+// HorV1Client is used to interact with features provided by the hor.hpa.memory group.
+type HorV1Client struct {
 	restClient rest.Interface
 }
 
-func (c *HorhpamemoryV1Client) HORHPAMemories(namespace string) HORHPAMemoryInterface {
+func (c *HorV1Client) HORHPAMemories(namespace string) HORHPAMemoryInterface {
 	return newHORHPAMemories(c, namespace)
 }
 
-// NewForConfig creates a new HorhpamemoryV1Client for the given config.
-func NewForConfig(c *rest.Config) (*HorhpamemoryV1Client, error) {
+// NewForConfig creates a new HorV1Client for the given config.
+func NewForConfig(c *rest.Config) (*HorV1Client, error) {
 	config := *c
 	if err := setConfigDefaults(&config); err != nil {
 		return nil, err
@@ -46,12 +46,12 @@ func NewForConfig(c *rest.Config) (*HorhpamemoryV1Client, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &HorhpamemoryV1Client{client}, nil
+	return &HorV1Client{client}, nil
 }
 
-// NewForConfigOrDie creates a new HorhpamemoryV1Client for the given config and
+// NewForConfigOrDie creates a new HorV1Client for the given config and
 // panics if there is an error in the config.
-func NewForConfigOrDie(c *rest.Config) *HorhpamemoryV1Client {
+func NewForConfigOrDie(c *rest.Config) *HorV1Client {
 	client, err := NewForConfig(c)
 	if err != nil {
 		panic(err)
@@ -59,9 +59,9 @@ func NewForConfigOrDie(c *rest.Config) *HorhpamemoryV1Client {
 	return client
 }
 
-// New creates a new HorhpamemoryV1Client for the given RESTClient.
-func New(c rest.Interface) *HorhpamemoryV1Client {
-	return &HorhpamemoryV1Client{c}
+// New creates a new HorV1Client for the given RESTClient.
+func New(c rest.Interface) *HorV1Client {
+	return &HorV1Client{c}
 }
 
 func setConfigDefaults(config *rest.Config) error {
@@ -79,7 +79,7 @@ func setConfigDefaults(config *rest.Config) error {
 
 // RESTClient returns a RESTClient that is used to communicate
 // with API server by this client implementation.
-func (c *HorhpamemoryV1Client) RESTClient() rest.Interface {
+func (c *HorV1Client) RESTClient() rest.Interface {
 	if c == nil {
 		return nil
 	}

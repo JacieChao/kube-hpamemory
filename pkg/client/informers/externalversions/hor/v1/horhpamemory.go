@@ -23,10 +23,10 @@ import (
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	watch "k8s.io/apimachinery/pkg/watch"
 	cache "k8s.io/client-go/tools/cache"
-	horhpamemory_v1 "kube-hpamemory/pkg/apis/horhpamemory/v1"
+	hor_hpa_memory_v1 "kube-hpamemory/pkg/apis/hor.hpa.memory/v1"
 	versioned "kube-hpamemory/pkg/client/clientset/versioned"
 	internalinterfaces "kube-hpamemory/pkg/client/informers/externalversions/internalinterfaces"
-	v1 "kube-hpamemory/pkg/client/listers/horhpamemory/v1"
+	v1 "kube-hpamemory/pkg/client/listers/hor/v1"
 	time "time"
 )
 
@@ -48,13 +48,13 @@ func NewHORHPAMemoryInformer(client versioned.Interface, namespace string, resyn
 	return cache.NewSharedIndexInformer(
 		&cache.ListWatch{
 			ListFunc: func(options meta_v1.ListOptions) (runtime.Object, error) {
-				return client.HorhpamemoryV1().HORHPAMemories(namespace).List(options)
+				return client.HorV1().HORHPAMemories(namespace).List(options)
 			},
 			WatchFunc: func(options meta_v1.ListOptions) (watch.Interface, error) {
-				return client.HorhpamemoryV1().HORHPAMemories(namespace).Watch(options)
+				return client.HorV1().HORHPAMemories(namespace).Watch(options)
 			},
 		},
-		&horhpamemory_v1.HORHPAMemory{},
+		&hor_hpa_memory_v1.HORHPAMemory{},
 		resyncPeriod,
 		indexers,
 	)
@@ -65,7 +65,7 @@ func defaultHORHPAMemoryInformer(client versioned.Interface, resyncPeriod time.D
 }
 
 func (f *hORHPAMemoryInformer) Informer() cache.SharedIndexInformer {
-	return f.factory.InformerFor(&horhpamemory_v1.HORHPAMemory{}, defaultHORHPAMemoryInformer)
+	return f.factory.InformerFor(&hor_hpa_memory_v1.HORHPAMemory{}, defaultHORHPAMemoryInformer)
 }
 
 func (f *hORHPAMemoryInformer) Lister() v1.HORHPAMemoryLister {

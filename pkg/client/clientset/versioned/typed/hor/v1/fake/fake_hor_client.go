@@ -18,20 +18,20 @@ package fake
 import (
 	rest "k8s.io/client-go/rest"
 	testing "k8s.io/client-go/testing"
-	v1 "kube-hpamemory/pkg/client/clientset/versioned/typed/horhpamemory/v1"
+	v1 "kube-hpamemory/pkg/client/clientset/versioned/typed/hor/v1"
 )
 
-type FakeHorhpamemoryV1 struct {
+type FakeHorV1 struct {
 	*testing.Fake
 }
 
-func (c *FakeHorhpamemoryV1) HORHPAMemories(namespace string) v1.HORHPAMemoryInterface {
+func (c *FakeHorV1) HORHPAMemories(namespace string) v1.HORHPAMemoryInterface {
 	return &FakeHORHPAMemories{c, namespace}
 }
 
 // RESTClient returns a RESTClient that is used to communicate
 // with API server by this client implementation.
-func (c *FakeHorhpamemoryV1) RESTClient() rest.Interface {
+func (c *FakeHorV1) RESTClient() rest.Interface {
 	var ret *rest.RESTClient
 	return ret
 }

@@ -20,32 +20,32 @@ import (
 	discovery "k8s.io/client-go/discovery"
 	rest "k8s.io/client-go/rest"
 	flowcontrol "k8s.io/client-go/util/flowcontrol"
-	horhpamemoryv1 "kube-hpamemory/pkg/client/clientset/versioned/typed/horhpamemory/v1"
+	horv1 "kube-hpamemory/pkg/client/clientset/versioned/typed/hor/v1"
 )
 
 type Interface interface {
 	Discovery() discovery.DiscoveryInterface
-	HorhpamemoryV1() horhpamemoryv1.HorhpamemoryV1Interface
+	HorV1() horv1.HorV1Interface
 	// Deprecated: please explicitly pick a version if possible.
-	Horhpamemory() horhpamemoryv1.HorhpamemoryV1Interface
+	Hor() horv1.HorV1Interface
 }
 
 // Clientset contains the clients for groups. Each group has exactly one
 // version included in a Clientset.
 type Clientset struct {
 	*discovery.DiscoveryClient
-	horhpamemoryV1 *horhpamemoryv1.HorhpamemoryV1Client
+	horV1 *horv1.HorV1Client
 }
 
-// HorhpamemoryV1 retrieves the HorhpamemoryV1Client
-func (c *Clientset) HorhpamemoryV1() horhpamemoryv1.HorhpamemoryV1Interface {
-	return c.horhpamemoryV1
+// HorV1 retrieves the HorV1Client
+func (c *Clientset) HorV1() horv1.HorV1Interface {
+	return c.horV1
 }
 
-// Deprecated: Horhpamemory retrieves the default version of HorhpamemoryClient.
+// Deprecated: Hor retrieves the default version of HorClient.
 // Please explicitly pick a version.
-func (c *Clientset) Horhpamemory() horhpamemoryv1.HorhpamemoryV1Interface {
-	return c.horhpamemoryV1
+func (c *Clientset) Hor() horv1.HorV1Interface {
+	return c.horV1
 }
 
 // Discovery retrieves the DiscoveryClient
@@ -64,7 +64,7 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 	}
 	var cs Clientset
 	var err error
-	cs.horhpamemoryV1, err = horhpamemoryv1.NewForConfig(&configShallowCopy)
+	cs.horV1, err = horv1.NewForConfig(&configShallowCopy)
 	if err != nil {
 		return nil, err
 	}
@@ -81,7 +81,7 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 // panics if there is an error in the config.
 func NewForConfigOrDie(c *rest.Config) *Clientset {
 	var cs Clientset
-	cs.horhpamemoryV1 = horhpamemoryv1.NewForConfigOrDie(c)
+	cs.horV1 = horv1.NewForConfigOrDie(c)
 
 	cs.DiscoveryClient = discovery.NewDiscoveryClientForConfigOrDie(c)
 	return &cs
@@ -90,7 +90,7 @@ func NewForConfigOrDie(c *rest.Config) *Clientset {
 // New creates a new Clientset for the given RESTClient.
 func New(c rest.Interface) *Clientset {
 	var cs Clientset
-	cs.horhpamemoryV1 = horhpamemoryv1.New(c)
+	cs.horV1 = horv1.New(c)
 
 	cs.DiscoveryClient = discovery.NewDiscoveryClient(c)
 	return &cs

@@ -22,7 +22,7 @@ import (
 	"fmt"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
 	cache "k8s.io/client-go/tools/cache"
-	v1 "kube-hpamemory/pkg/apis/horhpamemory/v1"
+	v1 "kube-hpamemory/pkg/apis/hor.hpa.memory/v1"
 )
 
 // GenericInformer is type of SharedIndexInformer which will locate and delegate to other
@@ -51,9 +51,9 @@ func (f *genericInformer) Lister() cache.GenericLister {
 // TODO extend this to unknown resources with a client pool
 func (f *sharedInformerFactory) ForResource(resource schema.GroupVersionResource) (GenericInformer, error) {
 	switch resource {
-	// Group=Horhpamemory, Version=V1
+	// Group=Hor, Version=V1
 	case v1.SchemeGroupVersion.WithResource("horhpamemories"):
-		return &genericInformer{resource: resource.GroupResource(), informer: f.Horhpamemory().V1().HORHPAMemories().Informer()}, nil
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Hor().V1().HORHPAMemories().Informer()}, nil
 
 	}
 

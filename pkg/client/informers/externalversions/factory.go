@@ -23,7 +23,7 @@ import (
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
 	cache "k8s.io/client-go/tools/cache"
 	versioned "kube-hpamemory/pkg/client/clientset/versioned"
-	horhpamemory "kube-hpamemory/pkg/client/informers/externalversions/horhpamemory"
+	hor "kube-hpamemory/pkg/client/informers/externalversions/hor"
 	internalinterfaces "kube-hpamemory/pkg/client/informers/externalversions/internalinterfaces"
 	reflect "reflect"
 	sync "sync"
@@ -110,9 +110,9 @@ type SharedInformerFactory interface {
 	ForResource(resource schema.GroupVersionResource) (GenericInformer, error)
 	WaitForCacheSync(stopCh <-chan struct{}) map[reflect.Type]bool
 
-	Horhpamemory() horhpamemory.Interface
+	Hor() hor.Interface
 }
 
-func (f *sharedInformerFactory) Horhpamemory() horhpamemory.Interface {
-	return horhpamemory.New(f)
+func (f *sharedInformerFactory) Hor() hor.Interface {
+	return hor.New(f)
 }

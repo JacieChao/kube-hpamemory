@@ -22,34 +22,34 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	testing "k8s.io/client-go/testing"
-	horhpamemory_v1 "kube-hpamemory/pkg/apis/horhpamemory/v1"
+	hor_hpa_memory_v1 "kube-hpamemory/pkg/apis/hor.hpa.memory/v1"
 )
 
 // FakeHORHPAMemories implements HORHPAMemoryInterface
 type FakeHORHPAMemories struct {
-	Fake *FakeHorhpamemoryV1
+	Fake *FakeHorV1
 	ns   string
 }
 
-var horhpamemoriesResource = schema.GroupVersionResource{Group: "horhpamemory", Version: "v1", Resource: "horhpamemories"}
+var horhpamemoriesResource = schema.GroupVersionResource{Group: "hor.hpa.memory", Version: "v1", Resource: "horhpamemories"}
 
-var horhpamemoriesKind = schema.GroupVersionKind{Group: "horhpamemory", Version: "v1", Kind: "HORHPAMemory"}
+var horhpamemoriesKind = schema.GroupVersionKind{Group: "hor.hpa.memory", Version: "v1", Kind: "HORHPAMemory"}
 
 // Get takes name of the hORHPAMemory, and returns the corresponding hORHPAMemory object, and an error if there is any.
-func (c *FakeHORHPAMemories) Get(name string, options v1.GetOptions) (result *horhpamemory_v1.HORHPAMemory, err error) {
+func (c *FakeHORHPAMemories) Get(name string, options v1.GetOptions) (result *hor_hpa_memory_v1.HORHPAMemory, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewGetAction(horhpamemoriesResource, c.ns, name), &horhpamemory_v1.HORHPAMemory{})
+		Invokes(testing.NewGetAction(horhpamemoriesResource, c.ns, name), &hor_hpa_memory_v1.HORHPAMemory{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*horhpamemory_v1.HORHPAMemory), err
+	return obj.(*hor_hpa_memory_v1.HORHPAMemory), err
 }
 
 // List takes label and field selectors, and returns the list of HORHPAMemories that match those selectors.
-func (c *FakeHORHPAMemories) List(opts v1.ListOptions) (result *horhpamemory_v1.HORHPAMemoryList, err error) {
+func (c *FakeHORHPAMemories) List(opts v1.ListOptions) (result *hor_hpa_memory_v1.HORHPAMemoryList, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewListAction(horhpamemoriesResource, horhpamemoriesKind, c.ns, opts), &horhpamemory_v1.HORHPAMemoryList{})
+		Invokes(testing.NewListAction(horhpamemoriesResource, horhpamemoriesKind, c.ns, opts), &hor_hpa_memory_v1.HORHPAMemoryList{})
 
 	if obj == nil {
 		return nil, err
@@ -59,8 +59,8 @@ func (c *FakeHORHPAMemories) List(opts v1.ListOptions) (result *horhpamemory_v1.
 	if label == nil {
 		label = labels.Everything()
 	}
-	list := &horhpamemory_v1.HORHPAMemoryList{}
-	for _, item := range obj.(*horhpamemory_v1.HORHPAMemoryList).Items {
+	list := &hor_hpa_memory_v1.HORHPAMemoryList{}
+	for _, item := range obj.(*hor_hpa_memory_v1.HORHPAMemoryList).Items {
 		if label.Matches(labels.Set(item.Labels)) {
 			list.Items = append(list.Items, item)
 		}
@@ -76,31 +76,43 @@ func (c *FakeHORHPAMemories) Watch(opts v1.ListOptions) (watch.Interface, error)
 }
 
 // Create takes the representation of a hORHPAMemory and creates it.  Returns the server's representation of the hORHPAMemory, and an error, if there is any.
-func (c *FakeHORHPAMemories) Create(hORHPAMemory *horhpamemory_v1.HORHPAMemory) (result *horhpamemory_v1.HORHPAMemory, err error) {
+func (c *FakeHORHPAMemories) Create(hORHPAMemory *hor_hpa_memory_v1.HORHPAMemory) (result *hor_hpa_memory_v1.HORHPAMemory, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewCreateAction(horhpamemoriesResource, c.ns, hORHPAMemory), &horhpamemory_v1.HORHPAMemory{})
+		Invokes(testing.NewCreateAction(horhpamemoriesResource, c.ns, hORHPAMemory), &hor_hpa_memory_v1.HORHPAMemory{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*horhpamemory_v1.HORHPAMemory), err
+	return obj.(*hor_hpa_memory_v1.HORHPAMemory), err
 }
 
 // Update takes the representation of a hORHPAMemory and updates it. Returns the server's representation of the hORHPAMemory, and an error, if there is any.
-func (c *FakeHORHPAMemories) Update(hORHPAMemory *horhpamemory_v1.HORHPAMemory) (result *horhpamemory_v1.HORHPAMemory, err error) {
+func (c *FakeHORHPAMemories) Update(hORHPAMemory *hor_hpa_memory_v1.HORHPAMemory) (result *hor_hpa_memory_v1.HORHPAMemory, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewUpdateAction(horhpamemoriesResource, c.ns, hORHPAMemory), &horhpamemory_v1.HORHPAMemory{})
+		Invokes(testing.NewUpdateAction(horhpamemoriesResource, c.ns, hORHPAMemory), &hor_hpa_memory_v1.HORHPAMemory{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*horhpamemory_v1.HORHPAMemory), err
+	return obj.(*hor_hpa_memory_v1.HORHPAMemory), err
+}
+
+// UpdateStatus was generated because the type contains a Status member.
+// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
+func (c *FakeHORHPAMemories) UpdateStatus(hORHPAMemory *hor_hpa_memory_v1.HORHPAMemory) (*hor_hpa_memory_v1.HORHPAMemory, error) {
+	obj, err := c.Fake.
+		Invokes(testing.NewUpdateSubresourceAction(horhpamemoriesResource, "status", c.ns, hORHPAMemory), &hor_hpa_memory_v1.HORHPAMemory{})
+
+	if obj == nil {
+		return nil, err
+	}
+	return obj.(*hor_hpa_memory_v1.HORHPAMemory), err
 }
 
 // Delete takes name of the hORHPAMemory and deletes it. Returns an error if one occurs.
 func (c *FakeHORHPAMemories) Delete(name string, options *v1.DeleteOptions) error {
 	_, err := c.Fake.
-		Invokes(testing.NewDeleteAction(horhpamemoriesResource, c.ns, name), &horhpamemory_v1.HORHPAMemory{})
+		Invokes(testing.NewDeleteAction(horhpamemoriesResource, c.ns, name), &hor_hpa_memory_v1.HORHPAMemory{})
 
 	return err
 }
@@ -109,17 +121,17 @@ func (c *FakeHORHPAMemories) Delete(name string, options *v1.DeleteOptions) erro
 func (c *FakeHORHPAMemories) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
 	action := testing.NewDeleteCollectionAction(horhpamemoriesResource, c.ns, listOptions)
 
-	_, err := c.Fake.Invokes(action, &horhpamemory_v1.HORHPAMemoryList{})
+	_, err := c.Fake.Invokes(action, &hor_hpa_memory_v1.HORHPAMemoryList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched hORHPAMemory.
-func (c *FakeHORHPAMemories) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *horhpamemory_v1.HORHPAMemory, err error) {
+func (c *FakeHORHPAMemories) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *hor_hpa_memory_v1.HORHPAMemory, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewPatchSubresourceAction(horhpamemoriesResource, c.ns, name, data, subresources...), &horhpamemory_v1.HORHPAMemory{})
+		Invokes(testing.NewPatchSubresourceAction(horhpamemoriesResource, c.ns, name, data, subresources...), &hor_hpa_memory_v1.HORHPAMemory{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*horhpamemory_v1.HORHPAMemory), err
+	return obj.(*hor_hpa_memory_v1.HORHPAMemory), err
 }

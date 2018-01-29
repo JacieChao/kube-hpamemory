@@ -2,7 +2,7 @@ package v1
 
 import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	horhpa "kube-hpamemory/pkg/apis/horhpamemory"
+	horhpa "kube-hpamemory/pkg/apis/hor.hpa.memory"
 	"k8s.io/apimachinery/pkg/runtime"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )

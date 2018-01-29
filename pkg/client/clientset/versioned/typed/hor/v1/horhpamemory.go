@@ -20,7 +20,7 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	rest "k8s.io/client-go/rest"
-	v1 "kube-hpamemory/pkg/apis/horhpamemory/v1"
+	v1 "kube-hpamemory/pkg/apis/hor.hpa.memory/v1"
 	scheme "kube-hpamemory/pkg/client/clientset/versioned/scheme"
 )
 
@@ -34,6 +34,7 @@ type HORHPAMemoriesGetter interface {
 type HORHPAMemoryInterface interface {
 	Create(*v1.HORHPAMemory) (*v1.HORHPAMemory, error)
 	Update(*v1.HORHPAMemory) (*v1.HORHPAMemory, error)
+	UpdateStatus(*v1.HORHPAMemory) (*v1.HORHPAMemory, error)
 	Delete(name string, options *meta_v1.DeleteOptions) error
 	DeleteCollection(options *meta_v1.DeleteOptions, listOptions meta_v1.ListOptions) error
 	Get(name string, options meta_v1.GetOptions) (*v1.HORHPAMemory, error)
@@ -50,7 +51,7 @@ type hORHPAMemories struct {
 }
 
 // newHORHPAMemories returns a HORHPAMemories
-func newHORHPAMemories(c *HorhpamemoryV1Client, namespace string) *hORHPAMemories {
+func newHORHPAMemories(c *HorV1Client, namespace string) *hORHPAMemories {
 	return &hORHPAMemories{
 		client: c.RESTClient(),
 		ns:     namespace,
@@ -111,6 +112,22 @@ func (c *hORHPAMemories) Update(hORHPAMemory *v1.HORHPAMemory) (result *v1.HORHP
 		Namespace(c.ns).
 		Resource("horhpamemories").
 		Name(hORHPAMemory.Name).
+		Body(hORHPAMemory).
+		Do().
+		Into(result)
+	return
+}
+
+// UpdateStatus was generated because the type contains a Status member.
+// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
+
+func (c *hORHPAMemories) UpdateStatus(hORHPAMemory *v1.HORHPAMemory) (result *v1.HORHPAMemory, err error) {
+	result = &v1.HORHPAMemory{}
+	err = c.client.Put().
+		Namespace(c.ns).
+		Resource("horhpamemories").
+		Name(hORHPAMemory.Name).
+		SubResource("status").
 		Body(hORHPAMemory).
 		Do().
 		Into(result)

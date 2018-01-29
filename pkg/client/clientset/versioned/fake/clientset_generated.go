@@ -22,8 +22,8 @@ import (
 	fakediscovery "k8s.io/client-go/discovery/fake"
 	"k8s.io/client-go/testing"
 	clientset "kube-hpamemory/pkg/client/clientset/versioned"
-	horhpamemoryv1 "kube-hpamemory/pkg/client/clientset/versioned/typed/horhpamemory/v1"
-	fakehorhpamemoryv1 "kube-hpamemory/pkg/client/clientset/versioned/typed/horhpamemory/v1/fake"
+	horv1 "kube-hpamemory/pkg/client/clientset/versioned/typed/hor/v1"
+	fakehorv1 "kube-hpamemory/pkg/client/clientset/versioned/typed/hor/v1/fake"
 )
 
 // NewSimpleClientset returns a clientset that will respond with the provided objects.
@@ -59,12 +59,12 @@ func (c *Clientset) Discovery() discovery.DiscoveryInterface {
 
 var _ clientset.Interface = &Clientset{}
 
-// HorhpamemoryV1 retrieves the HorhpamemoryV1Client
-func (c *Clientset) HorhpamemoryV1() horhpamemoryv1.HorhpamemoryV1Interface {
-	return &fakehorhpamemoryv1.FakeHorhpamemoryV1{Fake: &c.Fake}
+// HorV1 retrieves the HorV1Client
+func (c *Clientset) HorV1() horv1.HorV1Interface {
+	return &fakehorv1.FakeHorV1{Fake: &c.Fake}
 }
 
-// Horhpamemory retrieves the HorhpamemoryV1Client
-func (c *Clientset) Horhpamemory() horhpamemoryv1.HorhpamemoryV1Interface {
-	return &fakehorhpamemoryv1.FakeHorhpamemoryV1{Fake: &c.Fake}
+// Hor retrieves the HorV1Client
+func (c *Clientset) Hor() horv1.HorV1Interface {
+	return &fakehorv1.FakeHorV1{Fake: &c.Fake}
 }
